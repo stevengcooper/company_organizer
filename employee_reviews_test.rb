@@ -14,4 +14,7 @@ class EmployeeReviews < Minitest::Test
     assert Department.new
   end
 
+  def test_department_has_a_name
+    assert Department.new("Accounting")
+  end
 end
