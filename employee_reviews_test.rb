@@ -14,5 +14,4 @@ class EmployeeReviews < Minitest::Test
     assert Department.new
   end
 
-
 end
