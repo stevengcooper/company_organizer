@@ -22,4 +22,20 @@ class EmployeeReviews < Minitest::Test
     assert Employee.new("Bill Smith", "bill@yahoo.com", "919.343.4567", 60000)
   end
 
+  def test_employee_variables_are_stored
+    a = Employee.new("Bill Smith", "bill@yahoo.com", "919.343.4567", 60000)
+    assert_equal "Bill Smith", a.name
+    assert_equal "bill@yahoo.com", a.email
+    assert_equal  "919.343.4567", a.phone_number
+    assert_equal  60000, a.salary
+  end
+
+  def test_add_employee_to_department
+    accounting = Department.new("Accounting")
+    new_worker = Employee.new("Bill Smith", "bill@yahoo.com", "919.343.4567", 60000)
+    assert accounting.add_employee(new_worker)
+    assert_equal new_worker, accounting.staff[0]
+  end
+
+
 end
