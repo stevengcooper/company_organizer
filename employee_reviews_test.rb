@@ -58,10 +58,21 @@ class EmployeeReviews < Minitest::Test
   end
 
   def test_employee_performance_is_satisfactory_or_not
-    b = Employee.new(name: "Yvonne Yo", employee_performance: "unsatisfactory")
-    assert b.employee_performance
-    assert_equal b.employee_performance, "unsatisfactory"
+    b = Employee.new(name: "Yvonne Yo", performance: "unsatisfactory")
+    assert b.performance
+    assert_equal b.performance, "satisfactory"
   end
+
+  def test_give_raise_to_employee
+    b = Employee.new(name: "Yvonne Yo", salary: 100000, performance: "satisfactory")
+    byebug
+    assert_equal "satisfactory", b.performance
+    assert b.salary_adjustment(b.performance, b.salary)
+    assert_equal  110000, b.salary
+  end
+
+  # def test_raises_to_department_employees
+  # def test
   # def test_determine_employee_performance
   #   b = Employee.new("Yvonne Yo", "yvonne@gmail.com", "919.834.8765", 49000)
   #   assert employee.determine_performance(access_review(b.name))
