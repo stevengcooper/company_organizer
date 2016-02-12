@@ -2,9 +2,9 @@ require 'byebug'
 require './reviews.rb'
 
 class Employee
-  attr_reader :name, :email, :phone, :salary, :department
+  attr_reader :name, :email, :phone, :department
 
-  attr_accessor :review
+  attr_accessor :review, :salary
 
   def initialize(name: nil, email: nil, phone: nil, salary: nil, department: nil, review: nil, performance: nil)
     @name = name
@@ -21,7 +21,7 @@ class Employee
   end
 
   def performance
-    @performance = "satisfactory"
+    @performance == "satisfactory" ? (@performance = "satisfactory") : (@performance = "unsatisfactory")
   end
 
   def salary_adjustment(performance, salary)

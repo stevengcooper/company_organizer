@@ -18,4 +18,10 @@ class Department < Employee
     @staff.each {|a| sum += a.salary}
     return sum
   end
+
+  def raise_for_department(amount_to_disperse)
+    gets_raise = @staff.select { |worker| yield (worker)}
+    gets_raise.each {|worker| worker.salary += amount_to_disperse / gets_raise.length}
+  end
+
 end

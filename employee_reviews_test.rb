@@ -60,19 +60,34 @@ class EmployeeReviews < Minitest::Test
   def test_employee_performance_is_satisfactory_or_not
     b = Employee.new(name: "Yvonne Yo", performance: "unsatisfactory")
     assert b.performance
-    assert_equal b.performance, "satisfactory"
+    assert_equal "unsatisfactory", b.performance
   end
 
   def test_give_raise_to_employee
     b = Employee.new(name: "Yvonne Yo", salary: 100000, performance: "satisfactory")
-    byebug
     assert_equal "satisfactory", b.performance
     assert b.salary_adjustment(b.performance, b.salary)
     assert_equal  110000, b.salary
   end
 
-  # def test_raises_to_department_employees
-  # def test
+  def test_raises_to_department_employees
+    accounting = Department.new( "Accounting")
+    b = Employee.new(name: "Yvonne Yo", salary: 100000, performance: "unsatisfactory")
+    a = Employee.new(name: "Bill Smith",email:   "bill@yahoo.com", phone: "919.343.4567", salary: 60000, performance: "satisfactory")
+    c = Employee.new(name: "Xavier", salary: 70000, performance: "satisfactory")
+    accounting.add_employee(a)
+    accounting.add_employee(b)
+    accounting.add_employee(c)
+    b.performance
+    a.performance
+    c.performance
+    accounting.raise_for_department(10000) {|e| e.performance == "satisfactory"}
+    assert_equal 100000, b.salary
+    assert_equal 65000, a.salary
+    assert_equal 75000, c.salary
+  end
+
+
   # def test_determine_employee_performance
   #   b = Employee.new("Yvonne Yo", "yvonne@gmail.com", "919.834.8765", 49000)
   #   assert employee.determine_performance(access_review(b.name))
