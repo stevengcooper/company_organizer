@@ -2,22 +2,26 @@ require 'byebug'
 require './reviews.rb'
 
 class Employee
+
+  include Reviews
+
   attr_reader :name, :email, :phone, :department
 
   attr_accessor :review, :salary
 
-  def initialize(name: nil, email: nil, phone: nil, salary: nil, department: nil, review: nil, performance: nil)
+  def initialize(name: nil, email: nil, phone: nil, salary: nil, review: nil, performance: nil)
     @name = name
     @email = email
     @phone = phone
     @salary = salary
     @department = department
-    @performance = performance
     @review = review
+    @performance = performance
+    @staff_reviews = staff_reviews
   end
 
   def access_review(name)
-    @reviews.select {|n| (n.match(/\b#{name}\b/i)) ? (n = name.review) : false}
+    @review = @staff_reviews.select {|n| (n.scan(/\b#{name}\b/i).length >= 1) ? n : false}
   end
 
   def performance

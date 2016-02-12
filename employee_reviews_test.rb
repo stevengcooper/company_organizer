@@ -87,7 +87,28 @@ class EmployeeReviews < Minitest::Test
     assert_equal 75000, c.salary
   end
 
+  def test_raises_to_department_employees_based_on_two_parameters
+    accounting = Department.new( "Accounting")
+    a = Employee.new(name: "Yvonne Yo", salary: 100000, performance: "unsatisfactory")
+    b = Employee.new(name: "Bill Smith",email:   "bill@yahoo.com", phone: "919.343.4567", salary: 60000, performance: "satisfactory")
+    c = Employee.new(name: "Xavier", salary: 70000, performance: "satisfactory")
+    accounting.add_employee(a)
+    accounting.add_employee(b)
+    accounting.add_employee(c)
+    b.performance
+    a.performance
+    c.performance
+    accounting.raise_for_department(10000) {|e| e.performance == "satisfactory" && e.salary < 75000}
+    assert_equal 100000, a.salary
+    assert_equal 65000, b.salary
+    assert_equal 75000, c.salary
+  end
 
+  def test_imports_staff_reviews_to_store_in_employee_object
+      a = Employee.new(name: "Yvonne Yo", salary: 100000, performance: "unsatisfactory")
+      a.access_review("Yvonne")
+      assert_equal "Thus far, there have been two concerns over Yvonne's performance, and both have been discussed with her in internal meetings.  First, in some cases, Yvonne takes longer to complete tasks than would normally be expected.  This most commonly manifests during development on existing applications, but can sometimes occur during development on new projects, often during tasks shared with Andrew.  In order to accommodate for these preferences, Yvonne has been putting more time into fewer projects, which has gone well.", a.review[0]
+    end
 
 
 
