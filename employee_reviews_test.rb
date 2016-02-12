@@ -42,11 +42,19 @@ class EmployeeReviews < Minitest::Test
 
   def test_get_total_salaries_for_employees_in_department
     a = Employee.new("Bill Smith", "bill@yahoo.com", "919.343.4567", 60000)
-    b = Employee.new("Yvonne Yo", "yvonne@gmail.com", "919.834.8765", 49000)
+    b = Employee.new("Yvonne Yo", "yvonne@gmail.com", "919.834.8765", 60000)
     accounting = Department.new("Accounting")
     assert accounting.add_employee(a)
     assert accounting.add_employee(b)
     assert accounting.total_salaries("Accounting")
+    assert_equal accounting.total_salaries("Accounting"), 120000
+  end
+
+  def test_add_employee_review_text_to_employee
+    a = Employee.new("Bill Smith", "bill@yahoo.com", "919.343.4567", 60000)
+    b = Employee.new("Yvonne Yo", "yvonne@gmail.com", "919.834.8765", 49000)
+    assert a.access_review(a.name)
+    assert b.access_review(b.name)
   end
 
 
