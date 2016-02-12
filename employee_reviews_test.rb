@@ -22,20 +22,36 @@ class EmployeeReviews < Minitest::Test
     assert Employee.new("Bill Smith", "bill@yahoo.com", "919.343.4567", 60000)
   end
 
-  def test_employee_variables_are_stored
-    a = Employee.new("Bill Smith", "bill@yahoo.com", "919.343.4567", 60000)
-    assert_equal "Bill Smith", a.name
-    assert_equal "bill@yahoo.com", a.email
-    assert_equal  "919.343.4567", a.phone_number
-    assert_equal  60000, a.salary
-  end
-
   def test_add_employee_to_department
     accounting = Department.new("Accounting")
     new_worker = Employee.new("Bill Smith", "bill@yahoo.com", "919.343.4567", 60000)
     assert accounting.add_employee(new_worker)
     assert_equal new_worker, accounting.staff[0]
   end
+
+  def test_get_employee_name
+    a = Employee.new("Bill Smith", "bill@yahoo.com", "919.343.4567", 60000)
+    assert_equal "Bill Smith", a.name
+    assert_equal  60000, a.salary
+  end
+
+  def test_get_a_department_name
+    accounting = Department.new("Accounting")
+    assert_equal "Accounting", accounting.name
+  end
+
+  def test_get_total_salaries_for_employees_in_department
+    a = Employee.new("Bill Smith", "bill@yahoo.com", "919.343.4567", 60000)
+    b = Employee.new("Yvonne Yo", "yvonne@gmail.com", "919.834.8765", 49000)
+    accounting = Department.new("Accounting")
+    assert accounting.add_employee(a)
+    assert accounting.add_employee(b)
+    assert accounting.total_salaries("Accounting")
+  end
+
+
+
+
 
 
 end

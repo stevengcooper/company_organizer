@@ -8,7 +8,4 @@ class Employee
     @salary = salary
     @department = department
   end
-
-
-
 end
