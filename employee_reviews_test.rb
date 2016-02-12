@@ -72,8 +72,8 @@ class EmployeeReviews < Minitest::Test
 
   def test_raises_to_department_employees
     accounting = Department.new( "Accounting")
-    b = Employee.new(name: "Yvonne Yo", salary: 100000, performance: "unsatisfactory")
-    a = Employee.new(name: "Bill Smith",email:   "bill@yahoo.com", phone: "919.343.4567", salary: 60000, performance: "satisfactory")
+    a = Employee.new(name: "Yvonne Yo", salary: 100000, performance: "unsatisfactory")
+    b = Employee.new(name: "Bill Smith",email:   "bill@yahoo.com", phone: "919.343.4567", salary: 60000, performance: "satisfactory")
     c = Employee.new(name: "Xavier", salary: 70000, performance: "satisfactory")
     accounting.add_employee(a)
     accounting.add_employee(b)
@@ -82,10 +82,13 @@ class EmployeeReviews < Minitest::Test
     a.performance
     c.performance
     accounting.raise_for_department(10000) {|e| e.performance == "satisfactory"}
-    assert_equal 100000, b.salary
-    assert_equal 65000, a.salary
+    assert_equal 100000, a.salary
+    assert_equal 65000, b.salary
     assert_equal 75000, c.salary
   end
+
+
+
 
 
   # def test_determine_employee_performance
