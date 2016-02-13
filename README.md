@@ -20,4 +20,3 @@ ___
   3. Determine's raises by Performance:
     * Additional criteria for raises can be established by you.
     * Raises can be Department wide or for individual employee.
-___

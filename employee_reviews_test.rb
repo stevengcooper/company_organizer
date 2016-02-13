@@ -59,7 +59,7 @@ class EmployeeReviews < Minitest::Test
 
   def test_employee_performance_is_satisfactory_or_not
     b = Employee.new(name: "Yvonne Yo", performance: "unsatisfactory")
-    assert b.performance
+    employee.performance(b)
     assert_equal "unsatisfactory", b.performance
   end
 
@@ -78,9 +78,9 @@ class EmployeeReviews < Minitest::Test
     accounting.add_employee(a)
     accounting.add_employee(b)
     accounting.add_employee(c)
-    b.performance
-    a.performance
-    c.performance
+    employee.performance(a)
+    employee.performance(b)
+    employee.performance(c)
     accounting.raise_for_department(10000) {|e| e.performance == "satisfactory"}
     assert_equal 100000, a.salary
     assert_equal 65000, b.salary
@@ -89,15 +89,15 @@ class EmployeeReviews < Minitest::Test
 
   def test_raises_to_department_employees_based_on_two_parameters
     accounting = Department.new( "Accounting")
-    a = Employee.new(name: "Yvonne Yo", salary: 100000, performance: "unsatisfactory")
-    b = Employee.new(name: "Bill Smith",email:   "bill@yahoo.com", phone: "919.343.4567", salary: 60000, performance: "satisfactory")
-    c = Employee.new(name: "Xavier", salary: 70000, performance: "satisfactory")
+    a = Employee.new(name: "Yvonne", salary: 100000, performance: "unsatisfactory")
+    b = Employee.new(name: "Wanda",email:   "bill@yahoo.com", phone: "919.343.4567", salary: 60000)
+    c = Employee.new(name: "Xavier", salary: 70000)
     accounting.add_employee(a)
     accounting.add_employee(b)
     accounting.add_employee(c)
-    b.performance
-    a.performance
-    c.performance
+    employee.performance(a)
+    employee.performance(b)
+    employee.performance(c)
     accounting.raise_for_department(10000) {|e| e.performance == "satisfactory" && e.salary < 75000}
     assert_equal 100000, a.salary
     assert_equal 65000, b.salary
@@ -107,8 +107,29 @@ class EmployeeReviews < Minitest::Test
   def test_imports_staff_reviews_to_store_in_employee_object
       a = Employee.new(name: "Yvonne Yo", salary: 100000, performance: "unsatisfactory")
       a.access_review("Yvonne")
-      assert_equal "Thus far, there have been two concerns over Yvonne's performance, and both have been discussed with her in internal meetings.  First, in some cases, Yvonne takes longer to complete tasks than would normally be expected.  This most commonly manifests during development on existing applications, but can sometimes occur during development on new projects, often during tasks shared with Andrew.  In order to accommodate for these preferences, Yvonne has been putting more time into fewer projects, which has gone well.", a.review[0]
+      assert_equal "Thus far, there have been two concerns over Yvonne's performance, and both have been discussed with her in internal meetings.  First, in some cases, Yvonne takes longer to complete tasks than would normally be expected.  This most commonly manifests during development on existing applications, but can sometimes occur during development on new projects, often during tasks shared with Andrew.  In order to accommodate for these preferences, Yvonne has been putting more time into fewer projects, which has gone well.  Second, while in conversation, Yvonne has a tendency to interrupt, talk over others, and increase her volume when in disagreement.  In client meetings, she also can dwell on potential issues even if the client or other attendees have clearly ruled the issue out, and can sometimes get off topic.", a.review[0]
     end
+
+    def test_returns_performance_based_on_phrases_in_review
+      a = Employee.new(name: "Yvonne")
+      b = Employee.new(name: "Xavier")
+      c = Employee.new(name: "Wanda")
+      d = Employee.new(name: "Zeke")
+      a.access_review("Yvonne")
+      b.access_review("Xavier")
+      c.access_review("Wanda")
+      d.access_review("Zeke")
+      employee.performance(a)
+      employee.performance(b)
+      employee.performance(c)
+      employee.performance(d)
+      assert_equal "unsatisfactory", a.performance
+      assert_equal "unsatisfactory", d.performance
+      assert_equal "satisfactory", b.performance
+      assert_equal "satisfactory", c.performance
+    end
+
+
 
 
 
