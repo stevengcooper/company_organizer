@@ -26,7 +26,7 @@ ___
 ### Getting Started:
 Add `department.rb` , `reviews.rb'` and `employee.rb` to your project directory and:
 
-`require './department.rb'`, `require './reviews.rb'` and `require './employee.rb'` in your command file
+`require './department.rb'`, `require './reviews.rb'` and `require './employee.rb'` in your command file or use the file `reviews.rb` included in the repository
 ___
 ### Run the tests:
 If you want to run the tests add `employee_reviews_test.rb` to your project directory and run:
@@ -68,6 +68,15 @@ To see Accounting's total salaries:
 ___
 
 ### Give a raise to a Department's Employees:
-If you would like an an amount of money to be spread to a Accounting's Employees with a "satisfactory" Performance, then run:
+If you would like an an amount of money to be spread to Accounting's Employees, then run:
 
 `accounting.raise_for_department(#AMOUNT TO DISPERSE)`
+
+If you would like to disperse an amount of money to Accounting's Employee's based on who has a satisfactory performance, then run:
+
+`accounting.raise_for_department(#AMOUNT TO DISPERSE) {|x| e.set_performance(e) == "satisfactory"}`
+
+You can add any other parameters you would like by adding to the block.  For instance if you only wanted to give raises to Accounting Employees who have a satisfactory performance and make less than $75,000, then run:
+
+`accounting.raise_for_department(10000) {|e| e.set_performance(e) == "satisfactory" && e.salary < 75000}`
+___
