@@ -1,10 +1,10 @@
-# def access_review(name)
-#   individual_review = staff_reviews.select {|n| (n.scan(^\b\D+$).length) >= 1) ? n : false}
-#   review = individual_review.select {|n| (n.scan(/\b#{name}\b/i).length >= 1) ? n : false}
-#   review = review.join(0..-1)
-# end
-
 module Reviews
+
+  def add_review
+    puts "Please add the new employee review. Make sure the employee's name as stored in the program appears in the text for retrieval purposes."
+    new_review = get_user_input
+    staff_reviews << new_review
+  end
 
   def positive
     [/\bpleasure\sto\swork\swith/, /\bsuccessfully\b/, /\bwilling\sto\shelp/, /\bclients\sare\shappy/, /\bincredibly\sconsistent\b/, /\beffective\b/, /\bgreat\sasset\b/, /\bpositive\sperson\b/, /\bwhich\sis\svaluable\b/, /\bhas\sgone\swell\b/]

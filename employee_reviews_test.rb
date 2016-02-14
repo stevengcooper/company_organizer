@@ -1,8 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require 'byebug'
 
-#Note: This line is going to fail first.
 require './employee_reviews.rb'
 
 $mock_inputs = []
@@ -112,10 +110,20 @@ class EmployeeReviews < Minitest::Test
   end
 
   def test_imports_staff_reviews_to_store_in_employee_object
-      a = Employee.new(name: "Yvonne", salary: 100000, performance: "unsatisfactory")
+      a = Employee.new(name: "Yvonne", salary: 100000)
       a.access_review(a.name)
       assert_equal "Thus far, there have been two concerns over Yvonne's performance, and both have been discussed with her in internal meetings.  First, in some cases, Yvonne takes longer to complete tasks than would normally be expected.  This most commonly manifests during development on existing applications, but can sometimes occur during development on new projects, often during tasks shared with Andrew.  In order to accommodate for these preferences, Yvonne has been putting more time into fewer projects, which has gone well.  Second, while in conversation, Yvonne has a tendency to interrupt, talk over others, and increase her volume when in disagreement.  In client meetings, she also can dwell on potential issues even if the client or other attendees have clearly ruled the issue out, and can sometimes get off topic.", a.review
     end
+
+    def add_employee_review_to_database
+      a = Employee.new(name: "July")
+      assert a.add_review
+      assert output (/Please add the new employee review. Make sure the employee's name as stored in the program appears in the text for retrieval purposes./)
+      mock_inputs.clear
+      $mock_inputs << "I have concerns with July's performance."
+      assert_equal "I have concerns with July's performance.", a.access_review(a.name)
+    end
+
 
     def test_returns_performance_based_on_phrases_in_review
       a = Employee.new(name: "Yvonne")

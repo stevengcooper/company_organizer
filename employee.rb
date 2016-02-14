@@ -1,4 +1,3 @@
-require 'byebug'
 require './reviews.rb'
 
 class Employee
@@ -28,8 +27,8 @@ class Employee
   def set_performance(employee)
     access_review(employee.name)
     positive_count = 0
-    positive.each {|x| positive_count += 1 if x.match(@review)}
     negative_count = 0
+    positive.each {|x| positive_count += 1 if x.match(@review)}
     negative.each {|x| negative_count += 1 if x.match(@review)}
     positive_count > negative_count ? (@performance = "satisfactory") : (@performance = "unsatisfactory")
   end

@@ -1,4 +1,3 @@
-require 'byebug'
 require './employee.rb'
 
 class Department < Employee
