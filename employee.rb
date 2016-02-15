@@ -1,4 +1,5 @@
 require './reviews.rb'
+require 'byebug'
 
 class Employee
 
@@ -29,6 +30,7 @@ class Employee
     positive_count = 0
     negative_count = 0
     positive.each {|x| positive_count += 1 if x.match(@review)}
+    byebug
     negative.each {|x| negative_count += 1 if x.match(@review)}
     positive_count > negative_count ? (@performance = "satisfactory") : (@performance = "unsatisfactory")
   end

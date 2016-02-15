@@ -4,7 +4,7 @@ ___
 
 ##### This program allows your business to keep track of employees, departments, evaluate performance reviews, and determine raises according to the review's evaluation.
 ___
-### Make running your Business more effective
+### Make your Business more efficient
 
   1. Each Department can store and easily access employee's :
     * Name
